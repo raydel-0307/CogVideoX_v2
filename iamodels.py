@@ -37,6 +37,8 @@ def MainModel(ruta,prompt,settings,model_name):
 		torch_dtype=torch.float16
 	)
 
+	print("Generando Video")
+	
 	video = pipe(
 	    prompt=prompt,
 	    num_videos_per_prompt=settings["num_videos_per_prompt"],
