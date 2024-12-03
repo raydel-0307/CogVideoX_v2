@@ -1,4 +1,3 @@
-import torch
 from diffusers import CogVideoXPipeline
 from diffusers.utils import export_to_video
 import gc
@@ -15,11 +14,6 @@ def TrainModel(ruta,model_name):
 		cache_dir=save_path,
 		torch_dtype=torch.float16
 	)
-
-	gc.collect()
-	
-	torch.cuda.empty_cache()
-	gc.collect()
 
 	print(f"Modelo Exportdo: {ruta}/")
 
@@ -47,16 +41,10 @@ def MainModel(ruta,prompt,settings,model_name):
 	    guidance_scale=settings["guidance_scale"],
 	    generator=torch.Generator(device="cuda").manual_seed(42),
 	).frames[0]
+
+	print(video)
 	
 	export_to_video(video, f"{ruta}/output.mp4", fps=settings["fps"])
-	
-	torch.cuda.empty_cache()
-
-	gc.collect()
-
-	del pipe
-	torch.cuda.empty_cache()
-	gc.collect()
 
 	print(f"Video Exportado {ruta}/")
 
