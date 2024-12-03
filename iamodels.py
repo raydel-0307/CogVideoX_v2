@@ -15,10 +15,6 @@ def TrainModel(ruta,model_name):
 		cache_dir=save_path,
 		torch_dtype=torch.float16
 	)
-	#pipe.enable_model_cpu_offload()
-	#pipe.enable_sequential_cpu_offload()
-	#pipe.vae.enable_slicing()
-	#pipe.vae.enable_tiling()
 
 	gc.collect()
 	
@@ -36,6 +32,12 @@ def MainModel(ruta,prompt,settings,model_name):
 		cache_dir=model_path,
 		torch_dtype=torch.float16
 	)
+
+	if settings["slow_memory"]:
+		pipe.enable_model_cpu_offload()
+		pipe.enable_sequential_cpu_offload()
+		pipe.vae.enable_slicing()
+		pipe.vae.enable_tiling()
 
 	print("Generando Video")
 
