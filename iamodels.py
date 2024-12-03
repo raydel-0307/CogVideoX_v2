@@ -35,8 +35,6 @@ def MainModel(ruta,prompt,settings,model_name):
 
 	if settings["slow_memory"]:
 		pipe.enable_model_cpu_offload()
-		pipe.enable_sequential_cpu_offload()
-		pipe.vae.enable_slicing()
 		pipe.vae.enable_tiling()
 
 	print("Generando Video")
