@@ -1,10 +1,15 @@
 import torch
 from diffusers import CogVideoXPipeline
 from diffusers.utils import export_to_video
-import gc
 import os
+import pickle
+from minio_db import *
+from metrics import get_time
+import time
 
 def TrainModel(ruta,model_name):
+
+	init_time = time.perf_counter()
 	
 	save_path = f"{ruta}/model"
 	
@@ -16,17 +21,28 @@ def TrainModel(ruta,model_name):
 		torch_dtype=torch.float16
 	)
 
+	model_path = f'{ruta}/model.pkl'
+
+	with open(model_path, 'wb') as f:
+		pickle.dump(pipe, f)
+
+	print("Subiendo modelo")
+	upload_model(model_name,model_path,timeout=86000)
+
 	print(f"Modelo Exportdo: {ruta}/")
 
-def MainModel(ruta,prompt,settings,model_name):
-	
-	model_path = f"{ruta}/model"
+	get_time(init_time)
 
-	pipe = CogVideoXPipeline.from_pretrained(
-		model_name,
-		cache_dir=model_path,
-		torch_dtype=torch.float16
-	)
+def MainModel(ruta,prompt,settings,model_name):
+
+	init_time = time.perf_counter()
+
+	if not os.path.exists(f"{ruta}/model.pkl"):
+		print("Descargue el modelo primeramente: 'python3 download_model.py'")
+		return
+
+	with open(f"{ruta}/model.pkl", 'rb') as f:
+		pipe = pickle.load(f)
 
 	if settings["slow_memory"]:
 		pipe.enable_model_cpu_offload()
@@ -34,18 +50,22 @@ def MainModel(ruta,prompt,settings,model_name):
 
 	print("Generando Video")
 
-	video = pipe(
-	    prompt=prompt,
-	    num_videos_per_prompt=settings["num_videos_per_prompt"],
-	    num_inference_steps=settings["num_inference_steps"],
-	    num_frames=settings["num_frames"],
-	    guidance_scale=settings["guidance_scale"],
-	    generator=torch.Generator(device="cuda").manual_seed(42),
-	)
-
-	print("Video",video)
+	try:
+		video = pipe(
+		    prompt=prompt,
+		    num_videos_per_prompt=settings["num_videos_per_prompt"],
+		    num_inference_steps=settings["num_inference_steps"],
+		    num_frames=settings["num_frames"],
+		    guidance_scale=settings["guidance_scale"],
+		    generator=torch.Generator(device="cuda").manual_seed(42),
+		).frames[0]
+	except:
+		print("No se pudo generar el video, por favor, cambie la configuracion")
+		return
 	
-	export_to_video(video.frames[0], f"{ruta}/output.mp4", fps=settings["fps"])
+	export_to_video(video, f"{ruta}/output.mp4", fps=settings["fps"])
 
 	print(f"Video Exportado {ruta}/")
+
+	get_time(init_time)
 
