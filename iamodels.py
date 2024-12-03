@@ -1,3 +1,4 @@
+import torch
 from diffusers import CogVideoXPipeline
 from diffusers.utils import export_to_video
 import gc
