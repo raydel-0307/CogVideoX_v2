@@ -1,0 +1,11 @@
+{
+	"name_model":"THUDM/CogVideoX-2b",
+	"settings":{
+		"num_videos_per_prompt":1,
+		"num_inference_steps":50,
+		"num_frames":49,
+	    "guidance_scale":6,
+	    "fps":8
+	},
+	"prompt":"Un perro jugando en una ciudad"
+}
