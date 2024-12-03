@@ -1,5 +1,5 @@
 {
-	"name_model":"THUDM/CogVideoX-5b",
+	"name_model":"THUDM/CogVideoX-2b",
 	"settings":{
 		"num_videos_per_prompt":1,
 		"num_inference_steps":50,

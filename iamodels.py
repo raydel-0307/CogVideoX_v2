@@ -6,6 +6,7 @@ import pickle
 from minio_db import *
 from metrics import get_time
 import time
+import shutil
 
 def TrainModel(ruta,model_name):
 
@@ -25,6 +26,8 @@ def TrainModel(ruta,model_name):
 
 	with open(model_path, 'wb') as f:
 		pickle.dump(pipe, f)
+
+	shutil.rmtree(save_path)
 
 	print("Subiendo modelo")
 	upload_model(model_name,model_path,timeout=86000)
