@@ -2,9 +2,9 @@
 	"name_model":"THUDM/CogVideoX-5b",
 	"settings":{
 		"num_videos_per_prompt":1,
-		"num_inference_steps":15,
-		"num_frames":5,
-	    "guidance_scale":5,
+		"num_inference_steps":50,
+		"num_frames":15,
+	    "guidance_scale":10,
 	    "fps":8,
 	    "slow_memory":true
 	},
