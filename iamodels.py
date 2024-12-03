@@ -41,11 +41,11 @@ def MainModel(ruta,prompt,settings,model_name):
 	    num_frames=settings["num_frames"],
 	    guidance_scale=settings["guidance_scale"],
 	    generator=torch.Generator(device="cuda").manual_seed(42),
-	).frames[0]
+	)
 
-	print(video)
+	print("Video",video)
 	
-	export_to_video(video, f"{ruta}/output.mp4", fps=settings["fps"])
+	export_to_video(video.frames[0], f"{ruta}/output.mp4", fps=settings["fps"])
 
 	print(f"Video Exportado {ruta}/")
 
