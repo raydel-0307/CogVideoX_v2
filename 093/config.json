@@ -2,10 +2,10 @@
 	"name_model":"THUDM/CogVideoX-5b",
 	"settings":{
 		"num_videos_per_prompt":1,
-		"num_inference_steps":10,
-		"num_frames":3,
-	    "guidance_scale":3,
-	    "fps":4,
+		"num_inference_steps":15,
+		"num_frames":5,
+	    "guidance_scale":5,
+	    "fps":8,
 	    "slow_memory":true
 	},
 	"prompt":"A golden retriever, sporting sleek black sunglasses, with its lengthy fur flowing in the breeze, sprints playfully across a rooftop terrace, recently refreshed by a light rain. The scene unfolds from a distance, the dog's energetic bounds growing larger as it approaches the camera, its tail wagging with unrestrained joy, while droplets of water glisten on the concrete behind it. The overcast sky provides a dramatic backdrop, emphasizing the vibrant golden coat of the canine as it dashes towards the viewer. On a brilliant sunny day, the lakeshore is lined with an array of willow trees, their slender branches swaying gently in the soft breeze. The tranquil surface of the lake reflects the clear blue sky, while several elegant swans glide gracefully through the still water, leaving behind delicate ripples that disturb the mirror-like quality of the lake. The scene is one of serene beauty, with the willows' greenery providing a picturesque frame for the peaceful avian visitors."
