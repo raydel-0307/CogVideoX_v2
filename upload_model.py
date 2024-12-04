@@ -1,6 +1,7 @@
 import json
 import os
 from dotenv import load_dotenv
+import requests
 
 def upload_model(model_name,model_path,timeout=30):
     load_dotenv()
@@ -26,7 +27,7 @@ def upload_model(model_name,model_path,timeout=30):
             print(f"Error: {response.status_code}")
             print(response.json())
 
-    except RequestException as e:
+    except Exception as e:
         print(f"Fallo en la solicitud: {str(e)}")
     except Exception as e:
         print(f"Error: {str(e)}")

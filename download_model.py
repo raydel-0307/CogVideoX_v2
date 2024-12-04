@@ -1,4 +1,6 @@
 import json
+import requests
+import os
 
 def download_model(input_model_name, output_model_name, dir_path=None, timeout=30):
     print("Descargando Modelo")
