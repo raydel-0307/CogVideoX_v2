@@ -14,23 +14,23 @@ def TrainModel(ruta,model_name):
 	
 	save_path = f"{ruta}/model"
 	
-	if not os.path.exists(save_path):os.mkdir(save_path)
+	#if not os.path.exists(save_path):os.mkdir(save_path)
 	
-	pipe = CogVideoXPipeline.from_pretrained(
-		model_name,
-		cache_dir=save_path,
-		torch_dtype=torch.float16
-	)
+	#pipe = CogVideoXPipeline.from_pretrained(
+	#	model_name,
+	#	cache_dir=save_path,
+	#	torch_dtype=torch.float16
+	#)
 
 	model_path = f'{ruta}/model.pkl'
 
-	with open(model_path, 'wb') as f:
-		pickle.dump(pipe, f)
+	#with open(model_path, 'wb') as f:
+	#	pickle.dump(pipe, f)
 
-	shutil.rmtree(save_path)
+	#shutil.rmtree(save_path)
 
 	print("Subiendo modelo")
-	upload_model(model_name,model_path,timeout=86000)
+	upload_model(model_name,model_path,timeout=300000)
 
 	print(f"Modelo Exportdo: {ruta}/")
 
