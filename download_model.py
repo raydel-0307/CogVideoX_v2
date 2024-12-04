@@ -15,7 +15,7 @@ def download_model(input_model_name, output_model_name, dir_path=None, timeout=3
         else:
             print(f"Error: {response.status_code}")
             print(response.json())
-    except RequestException as e:
+    except Exception as e:
         print(f"Request failed: {str(e)}")
     except Exception as e:
         print(f"Error: {str(e)}")
