@@ -5,7 +5,7 @@ from requests.exceptions import RequestException
 
 def download_model(input_model_name, output_model_name, dir_path=None, timeout=30):
     print("Descargando Modelo")
-    url = 'http://192.168.1.29:8000/api/spark/download_pkl_from_minio/'
+    url = 'http://192.168.1.29:8000/api/spark/download_from_models/'
     try:
         response = requests.post(url,data={'model_name': input_model_name},timeout=timeout)
         if response.status_code == 200:
@@ -28,7 +28,7 @@ def upload_model(model_name,model_path,timeout=30):
         exit()
     with open(model_path, 'rb') as file:
         file_data = file.read()
-    url = 'http://192.168.1.29:8000/api/spark/upload_pkl_to_minio/'  
+    url = 'http://192.168.1.29:8000/api/spark/upload_to_models/'  
     try:
         files = {'file': (model_path, file_data, 'application/octet-stream')}
         response = requests.post(url,files=files,data={'object_name': model_name},timeout=timeout)
