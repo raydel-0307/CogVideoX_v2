@@ -15,7 +15,7 @@ def upload_model(model_name,model_path,timeout=30):
         exit()
     with open(model_path, 'rb') as file:
         file_data = file.read()
-    url = f'http://{minio_url}/api/spark/upload_to_models/'  
+    url = f'http://{minio_url}/api/minio/upload_to_models/'  
     try:
         files = {'file': (model_path, file_data, 'application/octet-stream')}
         response = requests.post(url,files=files,data={'object_name': f"{model_name}/models/model.zip"},timeout=timeout)
@@ -44,7 +44,7 @@ def fuctions_execute(config_json_path: str):
         
     # Usar los valores del archivo JSON
     model_name = config["name_model"]
-    model_path = f'{ruta}/model.pkl'
+    model_path = f'{ruta}/model.zip'
 
     # Llamar al modelo y mostrar los resultados
     print("Subiendo modelo")

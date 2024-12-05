@@ -25,7 +25,7 @@ def TrainModel(ruta,model_name):
 
 	shutil.make_archive(model_path, 'zip', save_path)
 
-	shutil.rmtree(save_path)
+	#shutil.rmtree(save_path)
 
 	print(f"Modelo Exportdo: {ruta}/")
 
