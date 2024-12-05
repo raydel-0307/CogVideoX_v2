@@ -18,7 +18,7 @@ def upload_model(model_name,model_path,timeout=30):
     url = f'http://{minio_url}/api/spark/upload_to_models/'  
     try:
         files = {'file': (model_path, file_data, 'application/octet-stream')}
-        response = requests.post(url,files=files,data={'object_name': model_name},timeout=timeout)
+        response = requests.post(url,files=files,data={'object_name': f"{model_name}/models/model.zip"},timeout=timeout)
         if response.status_code == 200:
             print("Archivo subido exitosamente")
             print(response.json())

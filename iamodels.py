@@ -25,9 +25,6 @@ def TrainModel(ruta,model_name):
 
 	shutil.make_archive(model_path, 'zip', save_path)
 
-	#with open(model_path, 'wb') as f:
-	#	pickle.dump(pipe, f)
-
 	shutil.rmtree(save_path)
 
 	print(f"Modelo Exportdo: {ruta}/")
@@ -42,12 +39,9 @@ def MainModel(ruta,prompt,settings,model_name):
 		print("Descargue el modelo primeramente: 'python3 download_model.py'")
 		return
 
-	shutil.unpack_archive(f"{ruta}/model.zip", ruta)
+	shutil.unpack_archive(f"{ruta}/model", ruta)
 
 	os.unlink(f"{ruta}/model.zip")
-	
-	#with open(f"{ruta}/model.pkl", 'rb') as f:
-	#	pipe = pickle.load(f)
 
 	if settings["slow_memory"]:
 		pipe.enable_model_cpu_offload()
