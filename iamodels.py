@@ -21,7 +21,7 @@ def TrainModel(ruta,model_name):
 		torch_dtype=torch.float16
 	)
 
-	model_path = f'{ruta}/model.zip'
+	model_path = f'{ruta}/model'
 
 	shutil.make_archive(model_path, 'zip', save_path)
 
@@ -39,7 +39,7 @@ def MainModel(ruta,prompt,settings,model_name):
 		print("Descargue el modelo primeramente: 'python3 download_model.py'")
 		return
 
-	shutil.unpack_archive(f"{ruta}/model", ruta)
+	shutil.unpack_archive(f"{ruta}/model.zip", ruta)
 
 	os.unlink(f"{ruta}/model.zip")
 
