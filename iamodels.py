@@ -33,7 +33,7 @@ def MainModel(ruta,prompt,settings,model_name):
 
 	init_time = time.perf_counter()
 
-	if not os.path.exists(f"{ruta}/model.zip"):
+	if not os.path.exists(f"{ruta}/model"):
 		print("Descargue el modelo primeramente: 'python3 download_model.py'")
 		return
 
