@@ -3,7 +3,6 @@ from diffusers import CogVideoXPipeline
 from diffusers.utils import export_to_video
 import os
 import pickle
-from minio_db import *
 from metrics import get_time
 import time
 import shutil
@@ -22,10 +21,12 @@ def TrainModel(ruta,model_name):
 		torch_dtype=torch.float16
 	)
 
-	model_path = f'{ruta}/model.pkl'
+	model_path = f'{ruta}/model.zip'
 
-	with open(model_path, 'wb') as f:
-		pickle.dump(pipe, f)
+	shutil.make_archive(model_path, 'zip', save_path)
+
+	#with open(model_path, 'wb') as f:
+	#	pickle.dump(pipe, f)
 
 	shutil.rmtree(save_path)
 
@@ -37,12 +38,16 @@ def MainModel(ruta,prompt,settings,model_name):
 
 	init_time = time.perf_counter()
 
-	if not os.path.exists(f"{ruta}/model.pkl"):
+	if not os.path.exists(f"{ruta}/model.zip"):
 		print("Descargue el modelo primeramente: 'python3 download_model.py'")
 		return
 
-	with open(f"{ruta}/model.pkl", 'rb') as f:
-		pipe = pickle.load(f)
+	shutil.unpack_archive(f"{ruta}/model.zip", ruta)
+
+	os.unlink(f"{ruta}/model.zip")
+	
+	#with open(f"{ruta}/model.pkl", 'rb') as f:
+	#	pipe = pickle.load(f)
 
 	if settings["slow_memory"]:
 		pipe.enable_model_cpu_offload()
