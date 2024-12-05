@@ -2,6 +2,7 @@ import json
 import requests
 from dotenv import load_dotenv
 import os
+import shutil
 
 def download_model(input_model_name, output_model_name, dir_path=None, timeout=30):
     load_dotenv()
@@ -20,6 +21,13 @@ def download_model(input_model_name, output_model_name, dir_path=None, timeout=3
             if dir_path:file_name = f"{dir_path}/{output_model_name}"
             with open(file_name, 'wb') as file:
                 file.write(response.content)
+
+            if not os.path.exists(f"{dir_path}/model"):os.mkdir(f"{dir_path}/model")
+
+            shutil.unpack_archive(f"{dir_path}/model/model.zip", ruta)
+
+            os.unlink(f"{ruta}/model.zip")
+
             print(f"File downloaded and saved successfully as '{file_name}'")
         else:
             print(f"Error: {response.status_code}")
