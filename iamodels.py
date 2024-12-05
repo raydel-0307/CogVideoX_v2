@@ -25,8 +25,6 @@ def TrainModel(ruta,model_name):
 
 	shutil.make_archive(model_path, 'zip', save_path)
 
-	#shutil.rmtree(save_path)
-
 	print(f"Modelo Exportdo: {ruta}/")
 
 	get_time(init_time)
@@ -39,9 +37,13 @@ def MainModel(ruta,prompt,settings,model_name):
 		print("Descargue el modelo primeramente: 'python3 download_model.py'")
 		return
 
-	shutil.unpack_archive(f"{ruta}/model.zip", ruta)
+	save_path = f"{ruta}/model"
 
-	os.unlink(f"{ruta}/model.zip")
+	pipe = CogVideoXPipeline.from_pretrained(
+		model_name,
+		cache_dir=save_path,
+		torch_dtype=torch.float16
+	)
 
 	if settings["slow_memory"]:
 		pipe.enable_model_cpu_offload()
